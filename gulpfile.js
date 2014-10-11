@@ -13,7 +13,7 @@ var karma = require("karma").server;
 var karmaConfig = require.resolve("./karma.conf");
 
 gulp.task("lint", function() {
-    return gulp.src(["src/*.js", "test/**/*.js", "*.js"])
+    return gulp.src(["src/*.js", "test/*.spec.js", "*.js"])
         .pipe(jshint(".jshintrc"))
         .pipe(jshint.reporter("jshint-stylish"))
         .pipe(gulpif(process.env.TRAVIS_JOB_NUMBER, jshint.reporter("fail")));

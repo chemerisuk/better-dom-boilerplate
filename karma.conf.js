@@ -10,7 +10,7 @@ module.exports = function(config) {
         files: [
             "bower_components/better-dom/dist/better-dom.js",
             "build/*.js",
-            "test/spec/*.spec.js"
+            "test/*.spec.js"
         ]
     });
 };
