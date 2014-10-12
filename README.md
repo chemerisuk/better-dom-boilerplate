@@ -1,21 +1,28 @@
 # better-dom-boilerplate
 > Quick starter for a better-dom plugin
 
-### Dependencies
+### Initial steps
 
-```json
-"better-dom-boilerplate": "git://github.com/chemerisuk/better-dom-boilerplate.git"
+```
+$ git clone your_plugin_repo.git && cd your_plugin_repo
+$ npm init
 ```
 
-### Scripts
+### Dependencies
+
+```
+$ npm install git://github.com/chemerisuk/better-dom-boilerplate.git --save-dev
+```
+
+### NPM scripts
 
 ```json
-"test": "gulp test --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
+"test": "gulp test --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
 "start": "gulp dev --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
 ```
 
 ### Customization
-Use property `autoprefixer` in `package.json` to override default browser list.By default the value is:
+Use property `autoprefixer` in `package.json` to override list of supported browsers. Default value:
 
 ```json
 "autoprefixer": [
@@ -23,13 +30,12 @@ Use property `autoprefixer` in `package.json` to override default browser list.B
 ]
 ```
 
-### Directory structure:
+### Directory structure
 ```
 ├── project/
 │   ├── .gitignore
 │   ├── .jshintrc
 │   ├── .travis.yml
-│   ├── LICENSE.txt
 │   ├── README.md
 │   ├── build
 │   │   ├── project.js
@@ -42,8 +48,9 @@ Use property `autoprefixer` in `package.json` to override default browser list.B
 │   ├── src
 │   │   ├── project.js
 │   │   ├── project.css
+│   │   ├── ...
 │   ├── test
-│   │   ├── project.{topic1}.spec.js
-│   │   ├── project.{topic2}.spec.js
+│   │   ├── {topic1}.spec.js
+│   │   ├── {topic2}.spec.js
 │   │   ├── ...
 ```

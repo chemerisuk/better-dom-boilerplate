@@ -27,8 +27,7 @@ gulp.task("compile", ["lint"], function() {
     return gulp.src(["src/*.js", "src/*.css"])
         .pipe(cssFilter)
         .pipe(postcss([ autoprefixer({browsers: browsers}), csswring ]))
-        .pipe(replace("\"", "'")) // handle quotes
-        .pipe(replace("\\", "\\\\")) // handle escapes
+        .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
         .pipe(replace(/([^{]+)\{([^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
         .pipe(cssFilter.restore())
         .pipe(jsFilter)
