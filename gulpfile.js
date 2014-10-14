@@ -3,6 +3,7 @@ var gulp = require("gulp");
 var gulpif = require("gulp-if");
 var gulpFilter = require("gulp-filter");
 var es6transpiler = require("gulp-es6-transpiler");
+var plumber = require("gulp-plumber");
 var concat = require("gulp-concat");
 var jshint = require("gulp-jshint");
 var postcss = require("gulp-postcss");
@@ -26,11 +27,13 @@ gulp.task("compile", ["lint"], function() {
 
     return gulp.src(["src/*.js", "src/*.css"])
         .pipe(cssFilter)
+        .pipe(plumber())
         .pipe(postcss([ autoprefixer({browsers: browsers}), csswring ]))
         .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
         .pipe(replace(/([^{]+)\{([^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
         .pipe(cssFilter.restore())
         .pipe(jsFilter)
+        .pipe(plumber())
         .pipe(es6transpiler())
         .pipe(jsFilter.restore())
         .pipe(concat(pkg.name + ".js"))
