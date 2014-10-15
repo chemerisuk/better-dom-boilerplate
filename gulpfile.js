@@ -13,6 +13,7 @@ var replace = require("gulp-replace");
 var karma = require("karma").server;
 var karmaConfig = require.resolve("./karma.conf");
 var browsers = pkg.autoprefixer || ["last 2 versions", "android 2.3", "IE >= 8", "Opera 12.1"];
+var url = require("postcss-url")({url: "inline"});
 
 gulp.task("lint", function() {
     return gulp.src(["src/*.js", "test/*.spec.js", "*.js"])
@@ -28,7 +29,7 @@ gulp.task("compile", ["lint"], function() {
     return gulp.src(["src/*.js", "src/*.css"])
         .pipe(cssFilter)
         .pipe(plumber())
-        .pipe(postcss([ autoprefixer({browsers: browsers}), csswring ]))
+        .pipe(postcss([ autoprefixer({browsers: browsers}), csswring, url ]))
         .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
         .pipe(replace(/([^{]+)\{([^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
         .pipe(cssFilter.restore())
