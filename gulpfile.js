@@ -14,6 +14,7 @@ var argv = require("yargs").argv;
 var bump = require("gulp-bump");
 var git = require("gulp-git");
 var tag_version = require("gulp-tag-version");
+var deploy = require("gulp-gh-pages");
 
 var karma = require("karma").server;
 var karmaConfig = require.resolve("./karma.conf");
@@ -107,4 +108,8 @@ gulp.task("release", ["dist"], function() {
         .pipe(git.push())
         .pipe(filter("package.json"))
         .pipe(tag_version());
+});
+
+gulp.task("gh-pages", function() {
+    return gulp.src(["*.*", "**/*"]).pipe(deploy());
 });
