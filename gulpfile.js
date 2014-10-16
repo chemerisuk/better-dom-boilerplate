@@ -18,13 +18,14 @@ var deploy = require("gulp-gh-pages");
 
 var karma = require("karma").server;
 var karmaConfig = require.resolve("./karma.conf");
+var jshintConfig = require.resolve("./.jshintrc"));
 var browsers = pkg.autoprefixer || ["last 2 versions", "android 2.3", "IE >= 8", "Opera 12.1"];
 var url = require("postcss-url")({url: "inline"});
 
 
 gulp.task("lint", function() {
     return gulp.src(["src/*.js", "test/*.spec.js", "*.js"])
-        .pipe(jshint(".jshintrc"))
+        .pipe(jshint(jshintConfig))
         .pipe(jshint.reporter("jshint-stylish"))
         .pipe(gulpif(process.env.TRAVIS_JOB_NUMBER, jshint.reporter("fail")));
 });
