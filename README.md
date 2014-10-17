@@ -8,12 +8,6 @@ $ git clone your_plugin_repo.git && cd your_plugin_repo
 $ npm init
 ```
 
-When it asks for the test command reply with:
-
-```
-gulp test --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .
-```
-
 ### Dependencies
 
 ```
@@ -40,7 +34,6 @@ Use property `autoprefixer` in `package.json` to override list of supported brow
 ```
 ├── project/
 │   ├── .gitignore
-│   ├── .jshintrc
 │   ├── .travis.yml
 │   ├── README.md
 │   ├── build

@@ -1,7 +1,7 @@
 var pkg = require("../../package");
 var gulp = require("gulp");
 var gulpif = require("gulp-if");
-var gulpFilter = require("gulp-filter");
+var filter = require("gulp-filter");
 var es6transpiler = require("gulp-es6-transpiler");
 var plumber = require("gulp-plumber");
 var concat = require("gulp-concat");
@@ -15,6 +15,7 @@ var bump = require("gulp-bump");
 var git = require("gulp-git");
 var tag_version = require("gulp-tag-version");
 var deploy = require("gulp-gh-pages");
+var header = require("gulp-header");
 
 var karma = require("karma").server;
 var karmaConfig = require.resolve("./karma.conf");
@@ -31,8 +32,8 @@ gulp.task("lint", function() {
 });
 
 gulp.task("compile", ["lint"], function() {
-    var jsFilter = gulpFilter("*.js");
-    var cssFilter = gulpFilter("*.css");
+    var jsFilter = filter("*.js");
+    var cssFilter = filter("*.css");
 
     return gulp.src(["src/*.js", "src/*.css"])
         .pipe(cssFilter)
