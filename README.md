@@ -18,7 +18,8 @@ $ npm install git://github.com/chemerisuk/better-dom-boilerplate.git --save-dev
 
 ```json
 "test": "gulp test --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
-"start": "gulp dev --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
+"start": "gulp dev --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
+"gh-pages": "gulp gh-pages --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
 ```
 
 ### Customization
