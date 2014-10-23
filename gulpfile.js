@@ -107,7 +107,6 @@ gulp.task("dist", ["compile", "bump"], function() {
 gulp.task("release", ["dist"], function(done) {
     gulp.src(["*.json", "dist/*.js"])
         .pipe(git.commit("version " + argv.tag))
-        .pipe(git.push())
         .pipe(filter("package.json"))
         .pipe(tag_version())
         .on("end", function() {
