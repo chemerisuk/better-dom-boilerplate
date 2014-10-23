@@ -104,12 +104,17 @@ gulp.task("dist", ["compile", "bump"], function() {
         .pipe(gulp.dest("dist/"));
 });
 
-gulp.task("release", ["dist"], function() {
+gulp.task("release", ["dist"], function(done) {
     gulp.src(["*.json", "dist/*.js"])
         .pipe(git.commit("version " + argv.tag))
         .pipe(git.push())
         .pipe(filter("package.json"))
-        .pipe(tag_version());
+        .pipe(tag_version())
+        .on("end", function() {
+            git.push("origin", "master", {}, function() {
+                git.push("origin", "master", {args: "--tags"}, done);
+            });
+        });
 });
 
 gulp.task("gh-pages", function() {
