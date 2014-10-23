@@ -31,6 +31,18 @@ Use property `autoprefixer` in `package.json` to override list of supported brow
 ]
 ```
 
+Property `karmaFiles` can be used to specify list of dependencies for testing:
+
+```json
+"karmaFiles": [
+  "file1.js",
+  "file2.js",
+  ...
+]
+```
+
+`"build/*.js"`, `"test/*.spec.js"` are ALWAYS included.
+
 ### Directory structure
 ```
 ├── project/

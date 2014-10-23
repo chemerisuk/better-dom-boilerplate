@@ -117,6 +117,6 @@ gulp.task("release", ["dist"], function(done) {
 });
 
 gulp.task("gh-pages", function() {
-    return gulp.src(["index.html", "build/*", "i18n/*", "bower_components/**/*"], {base: "."})
+    return gulp.src(["index.html", "README.md", "build/*", "i18n/*", "bower_components/**/*"], {base: "."})
         .pipe(deploy({cacheDir: "/tmp/" + pkg.name}));
 });
