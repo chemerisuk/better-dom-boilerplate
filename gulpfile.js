@@ -10,7 +10,6 @@ var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer-core");
 var csswring = require("csswring");
 var replace = require("gulp-replace");
-var argv = require("yargs").argv;
 var bump = require("gulp-bump");
 var git = require("gulp-git");
 var deploy = require("gulp-gh-pages");
