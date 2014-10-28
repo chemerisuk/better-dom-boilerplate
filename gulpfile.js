@@ -13,7 +13,6 @@ var replace = require("gulp-replace");
 var argv = require("yargs").argv;
 var bump = require("gulp-bump");
 var git = require("gulp-git");
-var tag_version = require("gulp-tag-version");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
 
@@ -79,12 +78,8 @@ gulp.task("dev", ["compile"], function() {
 });
 
 gulp.task("bump", function() {
-    var version = argv.tag;
-
-    if (!version) throw new gutil.PluginError("bump", "You need to specify --tag parameter");
-
     return gulp.src("*.json")
-        .pipe(bump({version: version}))
+        .pipe(bump({version: pkg.version}))
         .pipe(gulp.dest("./"));
 });
 
@@ -92,7 +87,7 @@ gulp.task("dist", ["compile", "bump"], function() {
     var banner = [
         "/**",
         " * <%= pkg.name %>: <%= pkg.description %>",
-        " * @version <%= version %> <%= new Date().toUTCString() %>",
+        " * @version <%= pkg.version %> <%= new Date().toUTCString() %>",
         " * @link <%= pkg.homepage %>",
         " * @copyright 2014 <%= pkg.author %>",
         " * @license <%= pkg.license %>",
@@ -100,15 +95,16 @@ gulp.task("dist", ["compile", "bump"], function() {
     ].join("\n");
 
     return gulp.src("build/*.js")
-        .pipe(header(banner + "\n", { pkg: pkg, version: argv.tag }))
+        .pipe(header(banner + "\n", { pkg: pkg }))
         .pipe(gulp.dest("dist/"));
 });
 
 gulp.task("release", ["dist"], function(done) {
+    var message = "version " + pkg.version;
+
     gulp.src(["*.json", "dist/*.js"])
-        .pipe(git.commit("version " + argv.tag))
-        .pipe(filter("package.json"))
-        .pipe(tag_version())
+        .pipe(git.commit(message))
+        .pipe(git.tag("v" + pkg.version, message))
         .on("end", function() {
             git.push("origin", "master", {}, function() {
                 git.push("origin", "master", {args: "--tags"}, done);
