@@ -23,6 +23,8 @@ $ npm install git://github.com/chemerisuk/better-dom-boilerplate.git --save-dev
 "gh-pages": "gulp gh-pages --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
 ```
 
+NOTE: before running `npm run release` you have to change `"version"` field in `package.json` to the disared value.
+
 ### Customization
 Use property `autoprefixer` in `package.json` to override list of supported browsers. Default value:
 

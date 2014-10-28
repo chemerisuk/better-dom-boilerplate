@@ -103,12 +103,11 @@ gulp.task("release", ["dist"], function(done) {
 
     gulp.src(["*.json", "dist/*.js"])
         .pipe(git.commit(message))
-        .pipe(git.tag("v" + pkg.version, message))
-        .on("end", function() {
-            git.push("origin", "master", {}, function() {
+        .pipe(git.tag("v" + pkg.version, message, function() {
+            git.push("origin", "master", function() {
                 git.push("origin", "master", {args: "--tags"}, done);
             });
-        });
+        }));
 });
 
 gulp.task("gh-pages", function() {
