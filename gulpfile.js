@@ -12,6 +12,7 @@ var csswring = require("csswring");
 var replace = require("gulp-replace");
 var bump = require("gulp-bump");
 var git = require("gulp-git");
+var tag_version = require("gulp-tag-version");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
 
@@ -99,11 +100,11 @@ gulp.task("dist", ["compile", "bump"], function() {
 });
 
 gulp.task("release", ["dist"], function(done) {
-    var message = "version " + pkg.version;
-
     gulp.src(["*.json", "dist/*.js"])
-        .pipe(git.commit(message))
-        .pipe(git.tag("v" + pkg.version, message, function() {
+        .pipe(git.commit("version " + pkg.version))
+        .pipe(filter("package.json"))
+        .pipe(tag_version())
+        .on("end", function() {
             git.push("origin", "master", function() {
                 git.push("origin", "master", {args: "--tags"}, done);
             });

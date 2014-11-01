@@ -24,6 +24,7 @@
     "gulp-plumber": "^0.6.6",
     "gulp-postcss": "^2.0.0",
     "gulp-replace": "^0.4.0",
+    "gulp-tag-version": "^1.1.0",
     "jshint-stylish": "^1.0.0",
     "karma": "^0.12.24",
     "karma-coverage": "^0.2.6",
