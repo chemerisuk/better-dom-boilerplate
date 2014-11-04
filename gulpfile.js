@@ -108,7 +108,7 @@ gulp.task("release", ["dist"], function(done) {
             git.push("origin", "master", function() {
                 git.push("origin", "master", {args: "--tags"}, done);
             });
-        }));
+        });
 });
 
 gulp.task("gh-pages", function() {
