@@ -32,6 +32,7 @@
     "karma-jasmine": "^0.2.0",
     "karma-jasmine-ajax": "^0.1.4",
     "karma-phantomjs-launcher": "^0.1.4",
+    "postcss-custom-properties": "^1.0.2",
     "postcss-url": "^1.0.2"
   }
 }

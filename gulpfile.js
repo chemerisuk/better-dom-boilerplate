@@ -21,6 +21,7 @@ var karmaConfig = require.resolve("./karma.conf");
 var jshintConfig = require.resolve("./.jshintrc");
 var browsers = pkg.autoprefixer || ["last 2 versions", "android 2.3", "IE >= 8", "Opera 12.1"];
 var url = require("postcss-url")({url: "inline"});
+var customProperties = require("postcss-custom-properties");
 
 
 gulp.task("lint", function() {
@@ -37,7 +38,7 @@ gulp.task("compile", ["lint"], function() {
     return gulp.src(["src/*.js", "src/*.css"])
         .pipe(cssFilter)
         .pipe(plumber())
-        .pipe(postcss([ autoprefixer({browsers: browsers}), csswring, url ]))
+        .pipe(postcss([ customProperties(), autoprefixer({browsers: browsers}), csswring, url ]))
         .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
         .pipe(replace(/([^{]+)\{([^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
         .pipe(cssFilter.restore())
