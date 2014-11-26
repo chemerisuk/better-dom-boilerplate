@@ -14,11 +14,7 @@ $ npm init
 $ npm install git://github.com/chemerisuk/better-dom-boilerplate.git --save-dev
 ```
 
-You also need to have `[bower](http://bower.io/)` installed globally:
-
-```sh
-$ bower install better-dom
-```
+You also need to have `[bower](http://bower.io/)` installed globally.
 
 ### NPM scripts
 
