@@ -3,15 +3,21 @@
 
 ### Initial steps
 
-```
+```sh
 $ git clone your_plugin_repo.git && cd your_plugin_repo
 $ npm init
 ```
 
 ### Dependencies
 
-```
+```sh
 $ npm install git://github.com/chemerisuk/better-dom-boilerplate.git --save-dev
+```
+
+You also need to have `[bower](http://bower.io/)` installed globally:
+
+```sh
+$ bower install better-dom
 ```
 
 ### NPM scripts

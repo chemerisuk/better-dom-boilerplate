@@ -37,6 +37,6 @@
     "postcss-url": "^1.0.2"
   },
   "scripts": {
-    "install": "rm -rf node_modules/gulp-es6-transpiler/node_modules/es6-transpiler/node_modules/es6-shim"
+    "install": "rm -rf node_modules/gulp-es6-transpiler/node_modules/es6-transpiler/node_modules/es6-shim && bower install"
   }
 }
