@@ -40,7 +40,7 @@ gulp.task("compile", ["lint"], function() {
         .pipe(plumber())
         .pipe(postcss([ customProperties(), autoprefixer({browsers: browsers}), csswring, url ]))
         .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
-        .pipe(replace(/([^{]+)\{([^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
+        .pipe(replace(/([^{]+)\{((?:[^{]+\{[^}]+\})+|[^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
         .pipe(cssFilter.restore())
         .pipe(jsFilter)
         .pipe(plumber())
