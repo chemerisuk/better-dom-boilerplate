@@ -1,6 +1,7 @@
 var pkg = require("../../package");
 var gulp = require("gulp");
 var gulpif = require("gulp-if");
+var gutil = require("gulp-util");
 var filter = require("gulp-filter");
 var es6transpiler = require("gulp-es6-transpiler");
 var plumber = require("gulp-plumber");
@@ -64,7 +65,9 @@ gulp.task("test", ["compile"], function(done) {
         };
     }
 
-    karma.start(config, done);
+    karma.start(config, function(resultCode) {
+        done(resultCode ? new gutil.PluginError("karma", "Specs were not passed") : null);
+    });
 });
 
 gulp.task("dev", ["compile"], function() {
