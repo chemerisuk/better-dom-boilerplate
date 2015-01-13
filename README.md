@@ -17,12 +17,19 @@ $ npm install git://github.com/chemerisuk/better-dom-boilerplate.git --save-dev
 You also need to have [bower](http://bower.io/) installed globally.
 
 ### NPM scripts
+Add following fields into project's `package.json`:
 
 ```json
-"test": "gulp test --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
-"start": "gulp dev --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
-"release": "gulp release --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd .",
-"gh-pages": "gulp gh-pages --gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
+  ...
+  "config": {
+    "gulp": "--gulpfile node_modules/better-dom-boilerplate/gulpfile.js --cwd ."
+  },
+  "scripts": {
+    "test": "gulp test $npm_package_config_gulp",
+    "start": "gulp dev $npm_package_config_gulp",
+    "release": "gulp release $npm_package_config_gulp",
+    "postrelease": "gulp gh-pages $npm_package_config_gulp"
+  }
 ```
 
 NOTE: before running `npm run release` you have to change `"version"` field in `package.json` to the disared value.
