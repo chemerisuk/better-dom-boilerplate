@@ -93,7 +93,7 @@ gulp.task("dist", ["compile", "bump"], function() {
         " * <%= pkg.name %>: <%= pkg.description %>",
         " * @version <%= pkg.version %> <%= new Date().toUTCString() %>",
         " * @link <%= pkg.homepage %>",
-        " * @copyright 2014 <%= pkg.author %>",
+        " * @copyright " + new Date().getFullYear() + " <%= pkg.author %>",
         " * @license <%= pkg.license %>",
         " */"
     ].join("\n");
