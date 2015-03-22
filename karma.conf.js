@@ -9,7 +9,6 @@ module.exports = function(config) {
         singleRun: true,
         frameworks: ["jasmine-ajax", "jasmine"],
         browsers: ["PhantomJS"],
-        preprocessors: { "build/*.js": "coverage" },
         files: files.concat("build/*.js", "test/*.spec.js")
     });
 };

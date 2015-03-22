@@ -52,12 +52,13 @@ gulp.task("compile", ["lint"], function() {
 });
 
 gulp.task("test", ["compile"], function(done) {
-    var config = { configFile: karmaConfig, preprocessors: [] };
+    var config = { configFile: karmaConfig };
 
     if (process.env.TRAVIS_JOB_NUMBER) {
         config = {
             configFile: karmaConfig,
             reporters: ["coverage", "dots", "coveralls"],
+            preprocessors: { "build/*.js": "coverage" },
             coverageReporter: {
                 type: "lcovonly",
                 dir: "coverage/"
@@ -76,6 +77,7 @@ gulp.task("dev", ["compile"], function() {
     karma.start({
         configFile: karmaConfig,
         reporters: ["coverage", "progress"],
+        preprocessors: { "build/*.js": "coverage" },
         background: true,
         singleRun: false
     });
