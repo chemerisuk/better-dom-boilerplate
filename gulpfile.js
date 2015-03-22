@@ -25,6 +25,19 @@ var url = require("postcss-url")({url: "inline"});
 var customProperties = require("postcss-custom-properties");
 
 
+function applyConfigOverrides(sectionName, config) {
+    var section = pkg.config && pkg.config[sectionName];
+
+    if (typeof section === "object") {
+        Object.keys(section).forEach(function(key) {
+            // apply overriden value
+            config[key] = section[key];
+        });
+    }
+
+    return config;
+}
+
 gulp.task("lint", function() {
     return gulp.src(["src/*.js", "test/*.spec.js", "*.js"])
         .pipe(jshint(jshintConfig))
@@ -35,11 +48,12 @@ gulp.task("lint", function() {
 gulp.task("compile", ["lint"], function() {
     var jsFilter = filter("*.js");
     var cssFilter = filter("*.css");
+    var autoprefixerConfig = applyConfigOverrides("autoprefixer", {browsers: browsers});
 
     return gulp.src(["src/*.js", "src/*.css"])
         .pipe(cssFilter)
         .pipe(plumber())
-        .pipe(postcss([ customProperties(), autoprefixer({browsers: browsers}), csswring, url ]))
+        .pipe(postcss([ customProperties(), autoprefixer(autoprefixerConfig), csswring, url ]))
         .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
         .pipe(replace(/([^{]+)\{((?:[^{]+\{[^}]+\})+|[^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
         .pipe(cssFilter.restore())
@@ -66,7 +80,7 @@ gulp.task("test", ["compile"], function(done) {
         };
     }
 
-    karma.start(config, function(resultCode) {
+    karma.start(applyConfigOverrides("karma", config), function(resultCode) {
         done(resultCode ? new gutil.PluginError("karma", "Specs were not passed") : null);
     });
 });
@@ -74,13 +88,13 @@ gulp.task("test", ["compile"], function(done) {
 gulp.task("dev", ["compile"], function() {
     gulp.watch("src/**", ["compile"]);
 
-    karma.start({
+    karma.start(applyConfigOverrides("karma", {
         configFile: karmaConfig,
         reporters: ["coverage", "progress"],
         preprocessors: { "build/*.js": "coverage" },
         background: true,
         singleRun: false
-    });
+    }));
 });
 
 gulp.task("bump", function() {
