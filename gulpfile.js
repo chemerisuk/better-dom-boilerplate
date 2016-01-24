@@ -3,7 +3,6 @@ var gulp = require("gulp");
 var gulpif = require("gulp-if");
 var gutil = require("gulp-util");
 var filter = require("gulp-filter");
-var babel = require("gulp-babel");
 var plumber = require("gulp-plumber");
 var concat = require("gulp-concat");
 var jshint = require("gulp-jshint");
@@ -17,6 +16,8 @@ var tag_version = require("gulp-tag-version");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
 
+var babel = require("gulp-babel");
+var babelConfig = require.resolve("./.babelrc");
 var karma = require("karma").server;
 var karmaConfig = require.resolve("./karma.conf");
 var jshintConfig = require.resolve("./.jshintrc");
@@ -59,7 +60,7 @@ gulp.task("compile", ["lint"], function() {
         .pipe(cssFilter.restore)
         .pipe(jsFilter)
         .pipe(plumber())
-        .pipe(babel({presets: "es2015"}))
+        .pipe(babel({extends: babelConfig}))
         .pipe(jsFilter.restore)
         .pipe(concat(pkg.name + ".js"))
         .pipe(gulp.dest("build/"));
