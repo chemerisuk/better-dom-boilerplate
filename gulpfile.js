@@ -3,7 +3,7 @@ var gulp = require("gulp");
 var gulpif = require("gulp-if");
 var gutil = require("gulp-util");
 var filter = require("gulp-filter");
-var es6transpiler = require("gulp-es6-transpiler");
+var babel = require("gulp-babel");
 var plumber = require("gulp-plumber");
 var concat = require("gulp-concat");
 var jshint = require("gulp-jshint");
@@ -46,8 +46,8 @@ gulp.task("lint", function() {
 });
 
 gulp.task("compile", ["lint"], function() {
-    var jsFilter = filter("*.js");
-    var cssFilter = filter("*.css");
+    var jsFilter = filter("*.js", {restore: true});
+    var cssFilter = filter("*.css", {restore: true});
     var autoprefixerConfig = applyConfigOverrides("autoprefixer", {browsers: browsers});
 
     return gulp.src(["src/*.js", "src/*.css"])
@@ -56,11 +56,11 @@ gulp.task("compile", ["lint"], function() {
         .pipe(postcss([ customProperties(), autoprefixer(autoprefixerConfig), csswring, url ]))
         .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
         .pipe(replace(/([^{]+)\{((?:[^{]+\{[^}]+\})+|[^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
-        .pipe(cssFilter.restore())
+        .pipe(cssFilter.restore)
         .pipe(jsFilter)
         .pipe(plumber())
-        .pipe(es6transpiler())
-        .pipe(jsFilter.restore())
+        .pipe(babel({presets: "es2015"}))
+        .pipe(jsFilter.restore)
         .pipe(concat(pkg.name + ".js"))
         .pipe(gulp.dest("build/"));
 });
