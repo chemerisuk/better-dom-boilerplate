@@ -133,7 +133,10 @@ gulp.task("npm-dist", ["compile"], function() {
 
     return gulp.src("build/*.js")
         .pipe(header(banner + "\n", { pkg: pkg, version: process.env.npm_package_version }))
-        .pipe(gulp.dest("dist/"));
+        .pipe(gulp.dest("dist/"))
+        .on("end", function() {
+            git.exec({args: "add -A dist"}, done);
+        });
 });
 
 gulp.task("release", ["dist"], function(done) {
