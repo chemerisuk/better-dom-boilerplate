@@ -120,7 +120,7 @@ gulp.task("dist", ["compile", "bump"], function() {
         .pipe(gulp.dest("dist/"));
 });
 
-gulp.task("npm-dist", ["compile"], function() {
+gulp.task("npm-dist", ["compile"], function(done) {
     var banner = [
         "/**",
         " * <%= pkg.name %>: <%= pkg.description %>",
