@@ -131,7 +131,7 @@ gulp.task("npm-dist", ["compile"], function(done) {
         " */"
     ].join("\n");
 
-    return gulp.src("build/*.js")
+    gulp.src("build/*.js")
         .pipe(header(banner + "\n", { pkg: pkg, version: process.env.npm_package_version }))
         .pipe(gulp.dest("dist/"))
         .on("end", function() {
