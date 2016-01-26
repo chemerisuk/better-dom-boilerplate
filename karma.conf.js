@@ -8,6 +8,7 @@ module.exports = function(config) {
         basePath: "../../",
         singleRun: true,
         frameworks: ["jasmine-ajax", "jasmine"],
+        plugins: ["karma-jasmine-ajax", "karma-phantomjs-launcher", "karma-jasmine"],
         browsers: ["PhantomJS"],
         files: files.concat("build/*.js", "test/*.spec.js")
     });
