@@ -18,7 +18,7 @@ var header = require("gulp-header");
 
 var babel = require("gulp-babel");
 var babelConfig = require.resolve("./.babelrc");
-var karma = require("karma").server;
+var karma = require("karma");
 var karmaConfig = require.resolve("./karma.conf");
 var jshintConfig = require.resolve("./.jshintrc");
 var browsers = pkg.autoprefixer || ["last 2 versions", "android 2.3", "IE >= 8", "Opera 12.1"];
@@ -81,9 +81,9 @@ gulp.task("test", ["compile"], function(done) {
         };
     }
 
-    karma.start(applyConfigOverrides("karma", config), function(resultCode) {
+    new karma.Server(applyConfigOverrides("karma", config), function(resultCode) {
         done(resultCode ? new gutil.PluginError("karma", "Specs were not passed") : null);
-    });
+    }).start();
 });
 
 gulp.task("dev", ["compile"], function() {
