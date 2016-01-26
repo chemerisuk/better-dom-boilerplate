@@ -15,6 +15,7 @@ var git = require("gulp-git");
 var tag_version = require("gulp-tag-version");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
+var argv = require("yargs").argv;
 
 var babel = require("gulp-babel");
 var babelConfig = require.resolve("./.babelrc");
@@ -117,6 +118,22 @@ gulp.task("dist", ["compile", "bump"], function() {
 
     return gulp.src("build/*.js")
         .pipe(header(banner + "\n", { pkg: pkg }))
+        .pipe(gulp.dest("dist/"));
+});
+
+gulp.task("npm-dist", ["compile"], function() {
+    var banner = [
+        "/**",
+        " * <%= pkg.name %>: <%= pkg.description %>",
+        " * @version <%= version %> <%= new Date().toUTCString() %>",
+        " * @link <%= pkg.homepage %>",
+        " * @copyright <%= new Date().getFullYear() %> <%= pkg.author %>",
+        " * @license <%= pkg.license %>",
+        " */"
+    ].join("\n");
+
+    return gulp.src("build/*.js")
+        .pipe(header(banner + "\n", { pkg: pkg, version: argv.version }))
         .pipe(gulp.dest("dist/"));
 });
 
