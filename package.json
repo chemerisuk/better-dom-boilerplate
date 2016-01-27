@@ -37,5 +37,8 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "postcss-custom-properties": "^5.0.0",
     "postcss-url": "^5.1.0"
+  },
+  "scripts": {
+    "install": "bower install"
   }
 }
