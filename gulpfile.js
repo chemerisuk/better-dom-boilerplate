@@ -15,6 +15,8 @@ var git = require("gulp-git");
 var tag_version = require("gulp-tag-version");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
+var rename = require("gulp-rename");
+var uglify = require("gulp-uglify");
 
 var babel = require("gulp-babel");
 var babelConfig = require.resolve("./.babelrc");
@@ -133,6 +135,9 @@ gulp.task("npm-dist", ["compile"], function(done) {
 
     gulp.src("build/*.js")
         .pipe(header(banner + "\n", { pkg: pkg, version: process.env.npm_package_version }))
+        .pipe(gulp.dest("dist/"))
+        .pipe(uglify())
+        .pipe(rename({extname: ".min.js"}))
         .pipe(gulp.dest("dist/"))
         .on("end", function() {
             git.exec({args: "add -A dist"}, done);
