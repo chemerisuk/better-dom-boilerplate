@@ -140,7 +140,7 @@ gulp.task("npm-dist", ["compile"], function(done) {
         .pipe(rename({extname: ".min.js"}))
         .pipe(gulp.dest("dist/"))
         .on("end", function() {
-            git.exec({args: "add -A dist"}, done);
+            git.exec({args: "add -A dist", quiet: true}, done);
         });
 });
 
