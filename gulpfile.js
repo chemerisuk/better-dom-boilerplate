@@ -10,9 +10,7 @@ var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer");
 var csswring = require("csswring");
 var replace = require("gulp-replace");
-var bump = require("gulp-bump");
 var git = require("gulp-git");
-var tag_version = require("gulp-tag-version");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
 var rename = require("gulp-rename");
@@ -100,29 +98,7 @@ gulp.task("dev", ["compile"], function() {
     }));
 });
 
-gulp.task("bump", function() {
-    return gulp.src("*.json")
-        .pipe(bump({version: pkg.version}))
-        .pipe(gulp.dest("./"));
-});
-
-gulp.task("dist", ["compile", "bump"], function() {
-    var banner = [
-        "/**",
-        " * <%= pkg.name %>: <%= pkg.description %>",
-        " * @version <%= pkg.version %> <%= new Date().toUTCString() %>",
-        " * @link <%= pkg.homepage %>",
-        " * @copyright " + new Date().getFullYear() + " <%= pkg.author %>",
-        " * @license <%= pkg.license %>",
-        " */"
-    ].join("\n");
-
-    return gulp.src("build/*.js")
-        .pipe(header(banner + "\n", { pkg: pkg }))
-        .pipe(gulp.dest("dist/"));
-});
-
-gulp.task("npm-dist", ["compile"], function(done) {
+gulp.task("dist", ["compile"], function(done) {
     var banner = [
         "/**",
         " * <%= pkg.name %>: <%= pkg.description %>",
@@ -141,18 +117,6 @@ gulp.task("npm-dist", ["compile"], function(done) {
         .pipe(gulp.dest("dist/"))
         .on("end", function() {
             git.exec({args: "add -A dist", quiet: true}, done);
-        });
-});
-
-gulp.task("release", ["dist"], function(done) {
-    gulp.src(["*.json", "dist/*.js"])
-        .pipe(git.commit("version " + pkg.version))
-        .pipe(filter("package.json"))
-        .pipe(tag_version())
-        .on("end", function() {
-            git.push("origin", "master", function() {
-                git.push("origin", "master", {args: "--tags"}, done);
-            });
         });
 });
 
