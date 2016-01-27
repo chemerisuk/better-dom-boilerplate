@@ -88,14 +88,14 @@ gulp.task("test", ["compile"], function(done) {
 
 gulp.task("dev", ["compile"], function() {
     gulp.watch("src/**", ["compile"]);
-
-    karma.start(applyConfigOverrides("karma", {
+    
+    new karma.Server(applyConfigOverrides("karma", {
         configFile: karmaConfig,
         reporters: ["coverage", "progress"],
         preprocessors: { "build/*.js": "coverage" },
         background: true,
         singleRun: false
-    }));
+    })).start();
 });
 
 gulp.task("dist", ["test"], function(done) {
