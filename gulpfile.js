@@ -136,7 +136,7 @@ gulp.task("npm-dist", ["compile"], function(done) {
     gulp.src("build/*.js")
         .pipe(header(banner + "\n", { pkg: pkg, version: process.env.npm_package_version }))
         .pipe(gulp.dest("dist/"))
-        .pipe(uglify())
+        .pipe(uglify({preserveComments: "license"}))
         .pipe(rename({extname: ".min.js"}))
         .pipe(gulp.dest("dist/"))
         .on("end", function() {
