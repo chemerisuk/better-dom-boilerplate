@@ -98,7 +98,7 @@ gulp.task("dev", ["compile"], function() {
     }));
 });
 
-gulp.task("dist", ["compile"], function(done) {
+gulp.task("dist", ["test"], function(done) {
     var banner = [
         "/**",
         " * <%= pkg.name %>: <%= pkg.description %>",
