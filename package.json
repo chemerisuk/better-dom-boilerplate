@@ -30,6 +30,7 @@
     "jasmine-core": "^2.4.1",
     "jshint-stylish": "^1.0.0",
     "karma": "^0.13.19",
+    "karma-babel-preprocessor": "^6.0.1",
     "karma-coverage": "^0.2.6",
     "karma-coveralls": "^0.1.4",
     "karma-jasmine": "^0.3.6",
