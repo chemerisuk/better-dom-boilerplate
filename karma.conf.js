@@ -10,7 +10,7 @@ module.exports = function(config) {
         singleRun: true,
         frameworks: ["jasmine-ajax", "jasmine"],
         preprocessors: {"test/*.spec.js": ["babel"]},
-        babelPreprocessor: {"extends": babelConfig},
+        babelPreprocessor: {options: {"extends": babelConfig}},
         plugins: ["karma-jasmine-ajax", "karma-phantomjs-launcher", "karma-jasmine", "karma-coverage", "karma-coveralls", "karma-babel-preprocessor"],
         browsers: ["PhantomJS"],
         files: files.concat("build/*.js", "test/*.spec.js")
