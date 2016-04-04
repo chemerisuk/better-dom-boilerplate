@@ -88,7 +88,7 @@ gulp.task("test", ["compile"], function(done) {
 
 gulp.task("dev", ["compile"], function() {
     gulp.watch("src/**", ["compile"]);
-    
+
     new karma.Server(applyConfigOverrides("karma", {
         configFile: karmaConfig,
         reporters: ["coverage", "progress"],
@@ -101,11 +101,11 @@ gulp.task("dev", ["compile"], function() {
 gulp.task("dist", ["test"], function(done) {
     var banner = [
         "/**",
-        " * <%= pkg.name %>: <%= pkg.description %>",
+        " * @overview <%= pkg.name %>: <%= pkg.description %>",
         " * @version <%= version %> <%= new Date().toUTCString() %>",
-        " * @link <%= pkg.homepage %>",
         " * @copyright <%= new Date().getFullYear() %> <%= pkg.author %>",
         " * @license <%= pkg.license %>",
+        " * @link <%= pkg.homepage %>",
         " */"
     ].join("\n");
 
