@@ -15,6 +15,7 @@ var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
 var rename = require("gulp-rename");
 var uglify = require("gulp-uglify");
+var bump = require("gulp-bump");
 
 var babel = require("gulp-babel");
 var babelConfig = require.resolve("./.babelrc");
@@ -98,14 +99,20 @@ gulp.task("dev", ["compile"], function() {
     })).start();
 });
 
-gulp.task("dist", ["test"], function(done) {
+gulp.task("bower", function() {
+    return gulp.src("./bower.json")
+        .pipe(bump({version: process.env.npm_package_version}))
+        .pipe(gulp.dest("./"));
+});
+
+gulp.task("dist", ["test", "bower"], function(done) {
     var banner = [
         "/**",
-        " * @overview <%= pkg.name %>: <%= pkg.description %>",
+        " * <%= pkg.name %>: <%= pkg.description %>",
         " * @version <%= version %> <%= new Date().toUTCString() %>",
+        " * @link <%= pkg.homepage %>",
         " * @copyright <%= new Date().getFullYear() %> <%= pkg.author %>",
         " * @license <%= pkg.license %>",
-        " * @link <%= pkg.homepage %>",
         " */"
     ].join("\n");
 
