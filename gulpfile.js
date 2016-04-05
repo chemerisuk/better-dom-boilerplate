@@ -26,6 +26,10 @@ var browsers = pkg.autoprefixer || ["last 2 versions", "android 2.3", "IE >= 8",
 var url = require("postcss-url")({url: "inline"});
 var customProperties = require("postcss-custom-properties");
 
+if (process.env.npm_package_version) {
+    pkg.version = process.env.npm_package_version;
+}
+
 
 function applyConfigOverrides(sectionName, config) {
     var section = pkg.config && pkg.config[sectionName];
@@ -101,23 +105,23 @@ gulp.task("dev", ["compile"], function() {
 
 gulp.task("bower", function() {
     return gulp.src("./bower.json")
-        .pipe(bump({version: process.env.npm_package_version}))
+        .pipe(bump({version: pkg.version}))
         .pipe(gulp.dest("./"));
 });
 
 gulp.task("dist", ["test", "bower"], function(done) {
     var banner = [
         "/**",
-        " * <%= pkg.name %>: <%= pkg.description %>",
+        " * <%= name %>: <%= description %>",
         " * @version <%= version %> <%= new Date().toUTCString() %>",
-        " * @link <%= pkg.homepage %>",
-        " * @copyright <%= new Date().getFullYear() %> <%= pkg.author %>",
-        " * @license <%= pkg.license %>",
+        " * @link <%= homepage %>",
+        " * @copyright <%= new Date().getFullYear() %> <%= author %>",
+        " * @license <%= license %>",
         " */"
     ].join("\n");
 
     gulp.src("build/*.js")
-        .pipe(header(banner + "\n", { pkg: pkg, version: process.env.npm_package_version }))
+        .pipe(header(banner + "\n", pkg))
         .pipe(gulp.dest("dist/"))
         .pipe(uglify({preserveComments: "license"}))
         .pipe(rename({extname: ".min.js"}))
