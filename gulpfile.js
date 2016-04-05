@@ -127,7 +127,7 @@ gulp.task("dist", ["test", "bower"], function(done) {
         .pipe(rename({extname: ".min.js"}))
         .pipe(gulp.dest("dist/"))
         .on("end", function() {
-            git.exec({args: "add -A dist", quiet: true}, done);
+            git.exec({args: "add -A dist bower.json", quiet: true}, done);
         });
 });
 
