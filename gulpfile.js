@@ -104,7 +104,7 @@ gulp.task("dev", ["compile"], function() {
 });
 
 gulp.task("bower", function() {
-    return gulp.src("./bower.json")
+    return gulp.src("./bower.json", {allowEmpty: true})
         .pipe(bump({version: pkg.version}))
         .pipe(gulp.dest("./"));
 });
