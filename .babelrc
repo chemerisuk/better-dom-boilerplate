@@ -11,4 +11,5 @@
         "transform-es2015-shorthand-properties",
         ["transform-es2015-spread", {"loose": true}],
         ["transform-es2015-template-literals", {"loose": true}]
+    ]
 }
