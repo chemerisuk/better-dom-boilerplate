@@ -28,7 +28,6 @@
     "gulp-concat": "^2.4.1",
     "gulp-filter": "^3.0.1",
     "gulp-gh-pages": "^0.3.4",
-    "gulp-git": "^0.5.2",
     "gulp-header": "^1.1.1",
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.8.5",
@@ -50,8 +49,5 @@
     "phantomjs-prebuilt": "^2.1.4",
     "postcss-custom-properties": "^5.0.0",
     "postcss-url": "^5.1.0"
-  },
-  "scripts": {
-    "install": "bower install"
   }
 }

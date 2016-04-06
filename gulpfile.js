@@ -10,7 +10,6 @@ var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer");
 var csswring = require("csswring");
 var replace = require("gulp-replace");
-var git = require("gulp-git");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
 var rename = require("gulp-rename");
@@ -109,7 +108,7 @@ gulp.task("bower", function() {
         .pipe(gulp.dest("./"));
 });
 
-gulp.task("dist", ["test", "bower"], function(done) {
+gulp.task("dist", ["test", "bower"], function() {
     var banner = [
         "/**",
         " * <%= name %>: <%= description %>",
@@ -120,15 +119,12 @@ gulp.task("dist", ["test", "bower"], function(done) {
         " */"
     ].join("\n");
 
-    gulp.src("build/*.js")
+    return gulp.src("build/*.js")
         .pipe(header(banner + "\n", pkg))
         .pipe(gulp.dest("dist/"))
         .pipe(uglify({preserveComments: "license"}))
         .pipe(rename({extname: ".min.js"}))
-        .pipe(gulp.dest("dist/"))
-        .on("end", function() {
-            git.exec({args: "add -A dist bower.json", quiet: true}, done);
-        });
+        .pipe(gulp.dest("dist/"));
 });
 
 gulp.task("gh-pages", function() {
