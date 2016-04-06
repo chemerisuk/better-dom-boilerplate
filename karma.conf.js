@@ -13,6 +13,10 @@ module.exports = function(config) {
         babelPreprocessor: {options: {"extends": babelConfig}},
         plugins: ["karma-jasmine-ajax", "karma-phantomjs-launcher", "karma-jasmine", "karma-coverage", "karma-coveralls", "karma-babel-preprocessor"],
         browsers: ["PhantomJS"],
-        files: files.concat("build/*.js", "test/*.spec.js")
+        files: files.concat("build/*.js", "test/*.spec.js"),
+        coverageReporter: {
+            type: "lcovonly",
+            dir: "coverage/"
+        }
     });
 };

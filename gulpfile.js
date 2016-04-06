@@ -74,14 +74,11 @@ gulp.task("test", ["compile"], function(done) {
     var config = { configFile: karmaConfig };
 
     if (process.env.TRAVIS_JOB_NUMBER) {
-        config = {
-            configFile: karmaConfig,
-            reporters: ["coverage", "dots", "coveralls"],
-            preprocessors: { "build/*.js": "coverage" },
-            coverageReporter: {
-                type: "lcovonly",
-                dir: "coverage/"
-            }
+        config.reporters = ["coverage", "dots", "coveralls"];
+
+        config.preprocessors = {
+            "test/*.spec.js": ["babel"],
+            "build/*.js": ["coverage"]
         };
     }
 
@@ -96,7 +93,10 @@ gulp.task("dev", ["compile"], function() {
     new karma.Server(applyConfigOverrides("karma", {
         configFile: karmaConfig,
         reporters: ["coverage", "progress"],
-        preprocessors: { "build/*.js": "coverage" },
+        preprocessors: {
+            "build/*.js": "coverage",
+            "test/*.spec.js": ["babel"]
+        },
         background: true,
         singleRun: false
     })).start();
