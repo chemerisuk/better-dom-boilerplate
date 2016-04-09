@@ -80,6 +80,11 @@ gulp.task("test", ["compile"], function(done) {
             "test/*.spec.js": ["babel"],
             "build/*.js": ["coverage"]
         };
+
+        config.coverageReporter = {
+            type: "lcovonly",
+            dir: "coverage/"
+        };
     }
 
     new karma.Server(applyConfigOverrides("karma", config), function(resultCode) {

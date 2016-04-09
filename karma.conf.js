@@ -15,7 +15,7 @@ module.exports = function(config) {
         browsers: ["PhantomJS"],
         files: files.concat("build/*.js", "test/*.spec.js"),
         coverageReporter: {
-            type: "lcovonly",
+            type: "html",
             dir: "coverage/"
         }
     });
