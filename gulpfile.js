@@ -21,7 +21,7 @@ var babelConfig = require.resolve("./.babelrc");
 var karma = require("karma");
 var karmaConfig = require.resolve("./karma.conf");
 var jshintConfig = require.resolve("./.jshintrc");
-var browsers = pkg.autoprefixer || ["last 2 versions", "android 2.3", "IE >= 8", "Opera 12.1"];
+var browsers = pkg.autoprefixer || ["ChromeAndroid 30", "iOS 7", "IE 10"];
 var url = require("postcss-url")({url: "inline"});
 var customProperties = require("postcss-custom-properties");
 
