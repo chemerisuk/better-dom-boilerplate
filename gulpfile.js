@@ -133,6 +133,8 @@ gulp.task("dist", ["test", "bower"], function() {
 });
 
 gulp.task("gh-pages", function() {
-    return gulp.src(["index.html", "README.md", "build/*", "i18n/*", "bower_components/**/*", "demo/*"], {base: "."})
+    var filesToKeep = ["index.html", "README.md", "build/*", "i18n/*", "bower_components/**/*", "demo/*"];
+    filesToKeep = filesToKeep.concat(Object.keys(pkg.peerDependencies || {}).map(name => "node_modules/" + name + "/**"));
+    return gulp.src(filesToKeep, {base: "."})
         .pipe(deploy({cacheDir: "/tmp/" + pkg.name}));
 });
