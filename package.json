@@ -9,13 +9,14 @@
     "url": "https://github.com/chemerisuk/better-dom-boilerplate"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-beta.49",
-    "@babel/preset-env": "^7.0.0-beta.49",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
     "autoprefixer": "^6.3.1",
     "babel-plugin-html-tag": "^1.0.5",
+    "babel-plugin-transform-css-import-to-string": "git+https://github.com/chemerisuk/babel-plugin-transform-css-import-to-string.git",
     "csswring": "^4.2.1",
     "gulp": "^3.8.8",
-    "gulp-babel": "^8.0.0-beta.2",
+    "gulp-babel": "^8.0.0",
     "gulp-bump": "^2.1.0",
     "gulp-concat": "^2.4.1",
     "gulp-filter": "^3.0.1",
@@ -33,11 +34,11 @@
     "jshint-stylish": "^1.0.0",
     "karma": "^1.5.0",
     "karma-babel-preprocessor": "^8.0.0-beta.0",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.0.0",
     "karma-coveralls": "^1.1.2",
     "karma-jasmine": "^0.3.6",
     "karma-jasmine-ajax": "^0.1.13",
-    "karma-chrome-launcher": "^2.2.0",
     "postcss-custom-properties": "^5.0.0",
     "postcss-url": "^5.1.0"
   }

@@ -9,6 +9,9 @@
         }]
     ],
     "plugins": [
-        "html-tag"
+        "html-tag",
+        ["transform-css-import-to-string", {
+            browsers: ["ChromeAndroid 30", "iOS 7", "IE 10"]
+        }]
     ]
 }
