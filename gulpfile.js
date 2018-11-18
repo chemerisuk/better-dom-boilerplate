@@ -2,14 +2,14 @@ var pkg = require("../../package");
 var gulp = require("gulp");
 var gulpif = require("gulp-if");
 var gutil = require("gulp-util");
-var filter = require("gulp-filter");
+// var filter = require("gulp-filter");
 var plumber = require("gulp-plumber");
 var concat = require("gulp-concat");
 var jshint = require("gulp-jshint");
-var postcss = require("gulp-postcss");
-var autoprefixer = require("autoprefixer");
-var csswring = require("csswring");
-var replace = require("gulp-replace");
+// var postcss = require("gulp-postcss");
+// var autoprefixer = require("autoprefixer");
+// var csswring = require("csswring");
+// var replace = require("gulp-replace");
 var deploy = require("gulp-gh-pages");
 var header = require("gulp-header");
 var rename = require("gulp-rename");
@@ -21,9 +21,9 @@ var babelConfig = require.resolve("./.babelrc");
 var karma = require("karma");
 var karmaConfig = require.resolve("./karma.conf");
 var jshintConfig = require.resolve("./.jshintrc");
-var browsers = pkg.autoprefixer || ["ChromeAndroid 30", "iOS 7", "IE 10"];
-var url = require("postcss-url")({url: "inline"});
-var customProperties = require("postcss-custom-properties");
+// var browsers = pkg.autoprefixer || ["ChromeAndroid 30", "iOS 7", "IE 10"];
+// var url = require("postcss-url")({url: "inline"});
+// var customProperties = require("postcss-custom-properties");
 
 if (process.env.npm_package_version) {
     pkg.version = process.env.npm_package_version;
@@ -51,21 +51,21 @@ gulp.task("lint", function() {
 });
 
 gulp.task("compile", ["lint"], function() {
-    var jsFilter = filter("*.js", {restore: true});
-    var cssFilter = filter("*.css", {restore: true});
-    var autoprefixerConfig = applyConfigOverrides("autoprefixer", {browsers: browsers});
+    // var jsFilter = filter("*.js", {restore: true});
+    // var cssFilter = filter("*.css", {restore: true});
+    // var autoprefixerConfig = applyConfigOverrides("autoprefixer", {browsers: browsers});
 
-    return gulp.src(["src/*.js", "src/*.css"])
-        .pipe(cssFilter)
-        .pipe(plumber())
-        .pipe(postcss([ customProperties(), autoprefixer(autoprefixerConfig), csswring, url ]))
-        .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
-        .pipe(replace(/([^{]+)\{((?:[^{]+\{[^}]+\})+|[^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
-        .pipe(cssFilter.restore)
-        .pipe(jsFilter)
+    return gulp.src(["src/*.js"/*, "src/*.css"*/])
+        // .pipe(cssFilter)
+        // .pipe(plumber())
+        // .pipe(postcss([ customProperties(), autoprefixer(autoprefixerConfig), csswring, url ]))
+        // .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
+        // .pipe(replace(/([^{]+)\{((?:[^{]+\{[^}]+\})+|[^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
+        // .pipe(cssFilter.restore)
+        // .pipe(jsFilter)
         .pipe(plumber())
         .pipe(babel({extends: babelConfig}))
-        .pipe(jsFilter.restore)
+        // .pipe(jsFilter.restore)
         .pipe(concat(pkg.name + ".js"))
         .pipe(gulp.dest("build/"));
 });

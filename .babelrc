@@ -10,6 +10,7 @@
     ],
     "plugins": [
         "html-tag",
+        "iife-wrap",
         ["transform-css-import-to-string", {
             browsers: ["ChromeAndroid 30", "iOS 7", "IE 10"]
         }]
