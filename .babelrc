@@ -12,7 +12,12 @@
         "html-tag",
         "iife-wrap",
         ["transform-css-import-to-string", {
-            browsers: ["ChromeAndroid 30", "iOS 7", "IE 10"]
+            "browsers": ["ChromeAndroid 30", "iOS 7", "IE 10"],
+            "features": {
+                "nesting-rules": true,
+                "custom-properties": {"preserve": false},
+                "custom-media-queries": {"preserve": false}
+            }
         }]
     ]
 }
