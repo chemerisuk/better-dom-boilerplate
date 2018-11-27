@@ -11,26 +11,19 @@
   "dependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
-    "autoprefixer": "^6.3.1",
     "babel-plugin-html-tag": "^1.0.5",
     "babel-plugin-iife-wrap": "^1.1.0",
     "babel-plugin-transform-css-import-to-string": "git+https://github.com/chemerisuk/babel-plugin-transform-css-import-to-string.git",
-    "csswring": "^4.2.1",
     "gulp": "^3.8.8",
     "gulp-babel": "^8.0.0",
-    "gulp-bump": "^2.1.0",
     "gulp-concat": "^2.4.1",
-    "gulp-filter": "^3.0.1",
     "gulp-gh-pages": "^0.3.4",
     "gulp-header": "^1.1.1",
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.8.5",
     "gulp-plumber": "^0.6.6",
-    "gulp-postcss": "^6.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.4.0",
     "gulp-uglify": "^1.5.1",
-    "gulp-util": "^3.0.1",
     "jshint-stylish": "^1.0.0",
     "karma": "^3.1.1",
     "karma-babel-preprocessor": "^8.0.0-beta.0",
@@ -39,7 +32,6 @@
     "karma-coveralls": "^2.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-ajax": "^0.1.13",
-    "postcss-custom-properties": "^5.0.0",
-    "postcss-url": "^5.1.0"
+    "plugin-error": "^1.0.1"
   }
 }

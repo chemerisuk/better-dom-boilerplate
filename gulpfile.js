@@ -1,29 +1,20 @@
-var pkg = require("../../package");
-var gulp = require("gulp");
-var gulpif = require("gulp-if");
-var gutil = require("gulp-util");
-// var filter = require("gulp-filter");
-var plumber = require("gulp-plumber");
-var concat = require("gulp-concat");
-var jshint = require("gulp-jshint");
-// var postcss = require("gulp-postcss");
-// var autoprefixer = require("autoprefixer");
-// var csswring = require("csswring");
-// var replace = require("gulp-replace");
-var deploy = require("gulp-gh-pages");
-var header = require("gulp-header");
-var rename = require("gulp-rename");
-var uglify = require("gulp-uglify");
-var bump = require("gulp-bump");
+const pkg = require("../../package");
+const gulp = require("gulp");
+const gulpif = require("gulp-if");
+const PluginError = require("plugin-error");
+const plumber = require("gulp-plumber");
+const concat = require("gulp-concat");
+const jshint = require("gulp-jshint");
+const deploy = require("gulp-gh-pages");
+const header = require("gulp-header");
+const rename = require("gulp-rename");
+const uglify = require("gulp-uglify");
 
-var babel = require("gulp-babel");
-var babelConfig = require.resolve("./.babelrc");
-var karma = require("karma");
-var karmaConfig = require.resolve("./karma.conf");
-var jshintConfig = require.resolve("./.jshintrc");
-// var browsers = pkg.autoprefixer || ["ChromeAndroid 30", "iOS 7", "IE 10"];
-// var url = require("postcss-url")({url: "inline"});
-// var customProperties = require("postcss-custom-properties");
+const babel = require("gulp-babel");
+const babelConfig = require.resolve("./.babelrc");
+const karma = require("karma");
+const karmaConfig = require.resolve("./karma.conf");
+const jshintConfig = require.resolve("./.jshintrc");
 
 if (process.env.npm_package_version) {
     pkg.version = process.env.npm_package_version;
@@ -51,21 +42,9 @@ gulp.task("lint", function() {
 });
 
 gulp.task("compile", ["lint"], function() {
-    // var jsFilter = filter("*.js", {restore: true});
-    // var cssFilter = filter("*.css", {restore: true});
-    // var autoprefixerConfig = applyConfigOverrides("autoprefixer", {browsers: browsers});
-
-    return gulp.src(["src/*.js"/*, "src/*.css"*/])
-        // .pipe(cssFilter)
-        // .pipe(plumber())
-        // .pipe(postcss([ customProperties(), autoprefixer(autoprefixerConfig), csswring, url ]))
-        // .pipe(replace(/\\|"/g, "\\$&")) // handle symbols need to escape
-        // .pipe(replace(/([^{]+)\{((?:[^{]+\{[^}]+\})+|[^}]+)\}/g, "DOM.importStyles(\"$1\", \"$2\");\n"))
-        // .pipe(cssFilter.restore)
-        // .pipe(jsFilter)
+    return gulp.src(["src/*.js"])
         .pipe(plumber())
         .pipe(babel({extends: babelConfig}))
-        // .pipe(jsFilter.restore)
         .pipe(concat(pkg.name + ".js"))
         .pipe(gulp.dest("build/"));
 });
@@ -88,7 +67,7 @@ gulp.task("test", ["compile"], function(done) {
     }
 
     new karma.Server(applyConfigOverrides("karma", config), function(resultCode) {
-        done(resultCode ? new gutil.PluginError("karma", "Specs were not passed") : null);
+        done(resultCode ? new PluginError("karma", "Specs were not passed") : null);
     }).start();
 });
 
@@ -107,13 +86,7 @@ gulp.task("dev", ["compile"], function() {
     })).start();
 });
 
-gulp.task("bower", function() {
-    return gulp.src("./bower.json", {allowEmpty: true})
-        .pipe(bump({version: pkg.version}))
-        .pipe(gulp.dest("./"));
-});
-
-gulp.task("dist", ["test", "bower"], function() {
+gulp.task("dist", ["test"], function() {
     var banner = [
         "/**",
         " * <%= name %>: <%= description %>",
@@ -133,7 +106,7 @@ gulp.task("dist", ["test", "bower"], function() {
 });
 
 gulp.task("gh-pages", function() {
-    var filesToKeep = ["index.html", "README.md", "build/*", "i18n/*", "bower_components/**/*", "demo/*"];
+    var filesToKeep = ["index.html", "README.md", "build/*", "demo/*"];
     filesToKeep = filesToKeep.concat(Object.keys(pkg.peerDependencies || {}).map(name => "node_modules/" + name + "/**"));
     return gulp.src(filesToKeep, {base: "."})
         .pipe(deploy({cacheDir: "/tmp/" + pkg.name}));
