@@ -10,7 +10,6 @@
     ],
     "plugins": [
         "html-tag",
-        "iife-wrap",
         ["transform-css-import-to-string", {
             "browsers": ["ChromeAndroid 30", "iOS 7", "IE 10"],
             "features": {
@@ -18,6 +17,7 @@
                 "custom-properties": {"preserve": false},
                 "custom-media-queries": {"preserve": false}
             }
-        }]
+        }],
+        "transform-modules-iife"
     ]
 }
